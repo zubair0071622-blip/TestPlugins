@@ -16,24 +16,22 @@ class ExampleProvider : MainAPI() {
     override val hasMainPage = false 
 
     init {
-        // Strategy 1: Automatically ping the site and follow any domain redirects
+        // Strategy 1: Automatically follow domain redirects safely
         try {
             val response = app.get(mainUrl, timeout = 10)
             if (response.url.isNotEmpty()) {
                 mainUrl = response.url
             }
         } catch (e: Exception) {
-            // If the site is down or blocks the ping, fallback to the default .mov URL
+            // Fallback to default if the site blocks the ping
         }
     }
 
     override suspend fun search(query: String): List<SearchResponse> {
-        // Essential framework stub: returns an empty list so the plugin builds successfully
         return listOf()
     }
 
     override suspend fun load(url: String): LoadResponse? {
-        // Essential framework stub: returns null so the plugin builds successfully
         return null
     }
 
@@ -43,7 +41,7 @@ class ExampleProvider : MainAPI() {
         subtitleCallback: (SubtitleFile) -> Unit,
         callback: (ExtractorLink) -> Unit
     ): Boolean {
-        // Essential framework stub: returns false so the plugin builds successfully
         return false
     }
 }
+
